@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebChat.Unity;
+using Microsoft.AspNet.SignalR;
 
 [assembly: OwinStartup(typeof(WebChat.Startup))]
 namespace WebChat
@@ -14,16 +15,17 @@ namespace WebChat
     {
         public void Configuration(IAppBuilder app)
         {
-            // Any connection or hub wire up and configuration should go here
-            app.MapSignalR();
-
+            var hubConfiguration = new HubConfiguration();
             var httpConfiguration = new HttpConfiguration();
+            ConfigureUnityContainer(httpConfiguration, hubConfiguration);
+
+            app.MapSignalR(hubConfiguration);
+            GlobalHost.HubPipeline.RequireAuthentication();
             WebApiConfig.Register(httpConfiguration);
-            ConfigureUnityContainer(httpConfiguration);
             app.UseWebApi(httpConfiguration);
         }
 
-        private void ConfigureUnityContainer(HttpConfiguration httpConfiguration)
+        private void ConfigureUnityContainer(HttpConfiguration httpConfiguration, HubConfiguration hubConfiguration)
         {
             var unityContainer = new UnityContainer();
 
@@ -34,6 +36,7 @@ namespace WebChat
             }
 
             httpConfiguration.DependencyResolver = new UnityDependencyResolver(unityContainer);
+            hubConfiguration.Resolver = new HubUnityDependencyResolver(unityContainer);
         }
 
         private IEnumerable<Type> GetTypesInheritingFrom<TBase>()

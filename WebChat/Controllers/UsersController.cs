@@ -30,7 +30,7 @@ namespace WebChat.Controllers
 
         public IEnumerable<User> GetByName(string nameQuery)
         {
-            return UserRepository.GetByName(nameQuery);
+            return UserRepository.SearchByName(nameQuery);
         }
     }
 }

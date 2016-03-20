@@ -10,7 +10,8 @@ namespace WebChat.Repository
     {
         IList<User> GetFriends(int userId);
         IList<User> GetAll();
-        IList<User> GetByName(string nameQuery);
+        IList<User> SearchByName(string nameQuery);
+        User GetUser(string username, string password);
     }
 
     public class UsersRepository : IUsersRepository
@@ -51,9 +52,15 @@ namespace WebChat.Repository
             return allUsers;
         }
 
-        public IList<User> GetByName(string nameQuery)
+        public IList<User> SearchByName(string nameQuery)
         {
             return allUsers;
+        }
+
+
+        public User GetUser(string username, string password)
+        {
+            return allUsers.FirstOrDefault(user => string.CompareOrdinal(user.Name, username) == 0);
         }
     }
 }

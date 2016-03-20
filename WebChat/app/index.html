@@ -8,25 +8,35 @@
     <script src="../signalr/hubs"></script>
     <script>
         $(function () {
-            // Reference the auto-generated proxy for the hub.  
-            var chat = $.connection.chatHub;
-            // Create a function that the hub can call back to display messages.
-            chat.client.addNewMessageToPage = function (name, message) {
-                // Add the message to the page. 
-                $('#discussion').append('<li><strong>' + htmlEncode(name)
-                    + '</strong>: ' + htmlEncode(message) + '</li>');
-            };
-            // Get the user name and store it to prepend to messages.
-            $('#displayname').val(prompt('Enter your name:', ''));
-            // Set initial focus to message input box.  
-            $('#message').focus();
-            // Start the connection.
-            $.connection.hub.start().done(function () {
-                $('#sendmessage').click(function () {
-                    // Call the Send method on the hub. 
-                    chat.server.send($('#displayname').val(), $('#message').val());
-                    // Clear text box and reset focus for next comment. 
-                    $('#message').val('').focus();
+            $("#btnLogin").click(function () {
+                $.ajax({
+                    url: "/api/auth/login",
+                    type: "GET",
+                    data: {
+                        username: $("#txtUser").val(),
+                        password: ""
+                    }
+                }).done(function () {
+                    // Reference the auto-generated proxy for the hub.  
+                    var chat = $.connection.chatHub;
+                    // Create a function that the hub can call back to display messages.
+                    chat.client.addNewMessageToPage = function (name, message) {
+                        // Add the message to the page. 
+                        $('#discussion').append('<li><strong>' + htmlEncode(name)
+                            + '</strong>: ' + htmlEncode(message) + '</li>');
+                    };
+
+                    // Set initial focus to message input box.  
+                    $('#message').focus();
+                    // Start the connection.
+                    $.connection.hub.start().done(function () {
+                        $('#sendmessage').click(function () {
+                            // Call the Send method on the hub. 
+                            chat.server.send($('#displayname').val(), $('#message').val());
+                            // Clear text box and reset focus for next comment. 
+                            $('#message').val('').focus();
+                        });
+                    });
                 });
             });
         });
@@ -39,6 +49,10 @@
 </head>
 <body>
     <h2>Chat</h2>
+    <div>
+        user <input type="text" id="txtUser" />
+        <button id="btnLogin">Login</button>
+    </div>
     <div class="container">
         <input type="text" id="message" />
         <input type="button" id="sendmessage" value="Send" />
