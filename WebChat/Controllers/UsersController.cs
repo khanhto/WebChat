@@ -17,31 +17,20 @@ namespace WebChat.Controllers
         {
             UserRepository = userRepository;
         }
-        // GET api/users
+
         public IEnumerable<User> GetFriends()
         {
             return UserRepository.GetFriends(1);
         }
 
-        // GET api/users/5
-        public string Get(int id)
+        public IEnumerable<User> GetAll(int id)
         {
-            return "value";
+            return UserRepository.GetAll();
         }
 
-        // POST api/users
-        public void Post([FromBody]string value)
+        public IEnumerable<User> GetByName(string nameQuery)
         {
-        }
-
-        // PUT api/users/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/users/5
-        public void Delete(int id)
-        {
+            return UserRepository.GetByName(nameQuery);
         }
     }
 }
