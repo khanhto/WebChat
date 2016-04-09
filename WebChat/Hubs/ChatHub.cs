@@ -15,10 +15,9 @@ namespace WebChat.Hubs
             UserRepository = userRepository;
         }
 
-        public void Send(string name, string message)
+        public void Send(string userId, string message)
         {
-            // Call the addNewMessageToPage method to update clients.
-            Clients.All.addNewMessageToPage(name, message);
+            Clients.User(userId).addNewMessageToPage(message);
         }
 
         public override Task OnConnected()
