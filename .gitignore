@@ -1,6 +1,9 @@
 bin/
 obj/
 packages/
+node_modules/
+.idea/
 
 *.suo
 *.user
+
