@@ -19,7 +19,7 @@ namespace WebChat.Controllers
             UserRepository = userRepository;
         }
 
-        [HttpGet]
+        [HttpPost]
         public void Login(string username, string password)
         {
             WebChat.Models.User user = UserRepository.GetUser(username, password);
