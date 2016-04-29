@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using System.Web.Security;
+using WebChat.Models;
 using WebChat.Repository;
 
 namespace WebChat.Controllers
@@ -20,7 +21,7 @@ namespace WebChat.Controllers
         }
 
         [HttpPost]
-        public void Login(string username, string password)
+        public User Login(string username, string password)
         {
             WebChat.Models.User user = UserRepository.GetUser(username, password);
             if (user != null)
@@ -32,6 +33,8 @@ namespace WebChat.Controllers
             {
                 //handle failed authentication requests later.
             }
+
+            return user;
         }
     }
 }

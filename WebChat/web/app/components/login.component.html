@@ -1,8 +1,17 @@
-<div>
+<form #loginForm="ngForm">
     <div>
-        User Name: <input type="text" />
+        User Name: <input type="text" required [(ngModel)]="loginInfo.username" ngControl="username" #username="ngForm"/>
+    </div>
+    <div [hidden]="username.valid || username.pristine">
+        User Name is required
     </div>
     <div>
-        Password: <input type="password" />
+        Password: <input type="password" required [(ngModel)]="loginInfo.password" ngControl="password" #password="ngForm"/>
     </div>
-</div>
+    <div [hidden]="password.valid || password.pristine">
+        Password is required
+    </div>
+    <div>
+        <button type="submit" [disabled]="!loginForm.form.valid">Login</button>
+    </div>
+</form>
