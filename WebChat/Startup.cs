@@ -7,6 +7,12 @@ using System.Collections.Generic;
 using System.Linq;
 using WebChat.Unity;
 using Microsoft.AspNet.SignalR;
+using Microsoft.Owin.StaticFiles;
+using Microsoft.Owin.FileSystems;
+using Microsoft.Owin.Extensions;
+using System.IO;
+using WebChat.Configuration;
+using System.Web;
 
 [assembly: OwinStartup(typeof(WebChat.Startup))]
 namespace WebChat
@@ -23,6 +29,12 @@ namespace WebChat
             GlobalHost.HubPipeline.RequireAuthentication();
             WebApiConfig.Register(httpConfiguration);
             app.UseWebApi(httpConfiguration);
+
+            app.UseFileServer(new FileServerOptions()
+            {
+                FileSystem = new PhysicalFileSystem(Path.Combine(HttpRuntime.AppDomainAppPath, AppConstants.webAppPath)),
+                RequestPath = new PathString(string.Empty)
+            });
         }
 
         private void ConfigureUnityContainer(HttpConfiguration httpConfiguration, HubConfiguration hubConfiguration)
