@@ -3,6 +3,7 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/route
 import {LoginComponent} from './login.component';
 import {DashboardComponent} from './dashboard.component';
 import {UserContext} from '../services/UserContext';
+import {AuthClient} from '../clients/AuthClient';
 
 @Component({
     selector: 'app',
@@ -10,7 +11,8 @@ import {UserContext} from '../services/UserContext';
     directives: [ROUTER_DIRECTIVES],
     providers: [
         ROUTER_PROVIDERS,
-        UserContext
+        UserContext,
+        AuthClient
     ]
 })
 @RouteConfig([

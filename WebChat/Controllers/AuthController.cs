@@ -8,6 +8,7 @@ using System.Web.Http;
 using System.Web.Security;
 using WebChat.Models;
 using WebChat.Repository;
+using WebChat.Requests;
 
 namespace WebChat.Controllers
 {
@@ -21,9 +22,9 @@ namespace WebChat.Controllers
         }
 
         [HttpPost]
-        public User Login(string username, string password)
+        public User Login(LoginRequest request)
         {
-            WebChat.Models.User user = UserRepository.GetUser(username, password);
+            WebChat.Models.User user = UserRepository.GetUser(request.Username, request.Password);
             if (user != null)
             {
                 //temporarily using Forms authentication, will replace with another mechanism

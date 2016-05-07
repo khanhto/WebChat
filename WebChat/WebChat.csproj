@@ -159,6 +159,7 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="OwinMiddlewares\SPAUrlRewritingMiddleware.cs" />
+    <Compile Include="Requests\LoginRequest.cs" />
     <Compile Include="Unity\HubUnityDependencyResolver.cs" />
     <Compile Include="Unity\IUnityRegistry.cs" />
     <Compile Include="Configuration\ServiceRegistry.cs" />
