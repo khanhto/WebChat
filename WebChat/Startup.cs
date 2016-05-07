@@ -13,6 +13,7 @@ using Microsoft.Owin.Extensions;
 using System.IO;
 using WebChat.Configuration;
 using System.Web;
+using WebChat.OwinMiddlewares;
 
 [assembly: OwinStartup(typeof(WebChat.Startup))]
 namespace WebChat
@@ -30,6 +31,7 @@ namespace WebChat
             WebApiConfig.Register(httpConfiguration);
             app.UseWebApi(httpConfiguration);
 
+            app.Use<SPAUrlRewritingMiddleware>();
             app.UseFileServer(new FileServerOptions()
             {
                 FileSystem = new PhysicalFileSystem(Path.Combine(HttpRuntime.AppDomainAppPath, AppConstants.webAppPath)),
