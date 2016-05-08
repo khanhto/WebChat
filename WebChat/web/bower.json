@@ -1,0 +1,6 @@
+{
+  "name": "web chat",
+  "dependencies": {
+    "signalr": "^2.2.0"
+  }
+}

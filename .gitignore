@@ -3,6 +3,7 @@ obj/
 packages/
 node_modules/
 .idea/
+bower_components/
 
 *.suo
 *.user

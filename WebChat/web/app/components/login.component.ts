@@ -20,8 +20,8 @@ export class LoginComponent {
     onSubmit() {
         this.authClient.login(this.loginInfo)
             .then((response) => {
-               // let link = ['dashboard'];
-               // this.router.navigate(link);
+                let link = ['Dashboard'];
+                this.router.navigate(link);
             },(error) => {
                 //handle error later
             });
