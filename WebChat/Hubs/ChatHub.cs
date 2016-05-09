@@ -24,5 +24,10 @@ namespace WebChat.Hubs
         {
             return base.OnConnected();
         }
+
+        public override Task OnDisconnected(bool stopCalled)
+        {
+            return base.OnDisconnected(stopCalled);
+        }
     }
 }

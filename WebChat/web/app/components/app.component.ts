@@ -4,6 +4,7 @@ import {LoginComponent} from './login.component';
 import {DashboardComponent} from './dashboard.component';
 import {UserContext} from '../services/UserContext';
 import {AuthClient} from '../clients/AuthClient';
+import {ChatHub} from '../clients/ChatHub';
 
 @Component({
     selector: 'app',
@@ -12,7 +13,8 @@ import {AuthClient} from '../clients/AuthClient';
     providers: [
         ROUTER_PROVIDERS,
         UserContext,
-        AuthClient
+        AuthClient,
+        ChatHub
     ]
 })
 @RouteConfig([
