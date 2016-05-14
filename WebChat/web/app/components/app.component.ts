@@ -5,6 +5,7 @@ import {DashboardComponent} from './dashboard.component';
 import {UserContext} from '../services/UserContext';
 import {AuthClient} from '../clients/AuthClient';
 import {ChatHub} from '../clients/ChatHub';
+import { UsersClient } from "../clients/UsersClient";
 
 @Component({
     selector: 'app',
@@ -14,7 +15,8 @@ import {ChatHub} from '../clients/ChatHub';
         ROUTER_PROVIDERS,
         UserContext,
         AuthClient,
-        ChatHub
+        ChatHub,
+        UsersClient
     ]
 })
 @RouteConfig([
