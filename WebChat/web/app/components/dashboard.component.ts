@@ -5,6 +5,7 @@ import { UsersClient } from "../clients/UsersClient";
 import {User} from "../models/User";
 import {ChatThread} from "../viewModels/ChatThread";
 import {ChatMessage} from "../viewModels/ChatMessage";
+import { UserContext } from '../services/UserContext';
 
 @Component({
     selector: 'dashboard',
@@ -12,7 +13,9 @@ import {ChatMessage} from "../viewModels/ChatMessage";
 })
 export class DashboardComponent implements OnInit, OnDestroy {
     constructor(private chatHub:ChatHub,
-                private usersClient:UsersClient) { 
+                private usersClient:UsersClient,
+                private userContext:UserContext
+    ) { 
         this.connectionEstablished = false;
         this.chatThreads = {};
     }
@@ -26,6 +29,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private connectionEstablished:boolean;
 
     ngOnInit() { 
+        this.chatHub.incomingMessages.subscribe((message:ChatMessage) => {
+            if (!this.chatThreads[message.userid]) {
+                this.chatThreads[message.userid] = new ChatThread();
+            }
+            this.chatThreads[message.userid].messages.push(message);
+        });
+
         this.chatHub.Start()
            .then(() => {
                this.connectionEstablished = true;
@@ -52,6 +62,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     onChatMessageSubmit() {
         this.chatHub.Send(new ChatMessage(this.currentFriend.id,this.currentChatThread.unsentMessage)).then(() => {
+            this.currentChatThread.messages.push(new ChatMessage(this.userContext.currentUser.id,this.currentChatThread.unsentMessage));
             this.currentChatThread.unsentMessage = "";
         });
     }

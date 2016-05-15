@@ -7,9 +7,11 @@ Dashboard
         </li>
     </ul>
     <div class="chat-thread" *ngIf="currentChatThread">
-        <div class="chat-text">
-
-        </div>
+        <ul class="chat-text">
+            <li *ngFor="#msg of currentChatThread.messages">
+               <span>{{msg.userid}}:</span> {{msg.message}}
+            </li>
+        </ul>
         <form class="chat-form" (ngSubmit)="onChatMessageSubmit()">
             <textarea [(ngModel)]="currentChatThread.unsentMessage">
             </textarea>

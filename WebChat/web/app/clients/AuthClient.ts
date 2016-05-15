@@ -3,6 +3,7 @@ import {Http, Response} from 'angular2/http';
 import {Promise} from 'es6-shim';
 import {BaseClient} from './BaseClient';
 import {LoginModel} from '../viewModels/LoginModel';
+import {User} from '../models/User';
 import 'rxjs/Rx';
 
 @Injectable()
@@ -12,7 +13,7 @@ export class AuthClient extends BaseClient {
     constructor(http: Http) {
         super(http);
     }
-    public login(login:LoginModel): Promise<Response> {
+    public login(login:LoginModel): Promise<User> {
         let body = JSON.stringify(login);
         return this.post("/api/auth/login", body)
                         .toPromise()

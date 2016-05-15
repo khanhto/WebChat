@@ -2,6 +2,8 @@ import {Component} from "angular2/core";
 import {LoginModel} from "../viewModels/LoginModel";
 import {AuthClient} from "../clients/AuthClient";
 import { Router } from 'angular2/router';
+import { UserContext } from '../services/UserContext';
+import {User} from '../models/User';
 
 @Component({
     selector: 'login',
@@ -11,15 +13,17 @@ export class LoginComponent {
     loginInfo:LoginModel;
 
     constructor(private authClient:AuthClient,
-                private router: Router
+                private router: Router,
+                private userContext: UserContext
     ) {
         this.loginInfo = new LoginModel();
-        this.authClient = authClient;
     }
 
     onSubmit() {
         this.authClient.login(this.loginInfo)
-            .then((response) => {
+            .then((user:User) => {
+                this.userContext.currentUser = user;
+
                 let link = ['Dashboard'];
                 this.router.navigate(link);
             },(error) => {

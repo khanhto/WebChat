@@ -10,17 +10,17 @@ import {ChatMessage} from "../viewModels/ChatMessage";
 export class ChatHub extends BaseHub {
     private $chatHub;
 
-    public incomingMessagesObservable: Observable<ChatMessage>;
+    public incomingMessages: Observable<ChatMessage>;
 
     constructor() {
         super($.connection.chatHub.connection);
         this.$chatHub = $.connection.chatHub;
 
-    //    this.incomingMessagesObservable = new Observable(observer => {
-            this.$chatHub.client.onMessageReceived = (message:string) => {
-                console.log(message);
+        this.incomingMessages = new Observable(observer => {
+            this.$chatHub.client.onMessageReceived = (message:ChatMessage) => {
+                observer.next(message);
             };
-   //     });
+        });
     }
 
     public Send(message:ChatMessage):Promise<Response> {

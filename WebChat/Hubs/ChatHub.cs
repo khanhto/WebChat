@@ -19,13 +19,11 @@ namespace WebChat.Hubs
 
         public void Send(ChatMessage message)
         {
-            //Clients.User(message.UserId.ToString()).onMessageReceived(new ChatMessage()
-            //{
-            //    UserId = int.Parse(Thread.CurrentPrincipal.Identity.Name),
-            //    Message = message.Message
-            //});
-
-            Clients.User(message.UserId.ToString()).onMessageReceived(message.Message);
+            Clients.User(message.UserId.ToString()).onMessageReceived(new ChatMessage()
+            {
+                UserId = int.Parse(Thread.CurrentPrincipal.Identity.Name),
+                Message = message.Message
+            });
         }
 
         public override Task OnConnected()
