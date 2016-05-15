@@ -1,9 +1,19 @@
 Dashboard
 
 <div>
-    <ul class="friends">
-        <li *ngFor="#friend of friends">
+    <ul class="friends-list">
+        <li *ngFor="#friend of friends" (click)="onFriendSelected(friend)">
                <span>{{friend.id}}</span> {{friend.name}}
         </li>
     </ul>
+    <div class="chat-thread" *ngIf="currentChatThread">
+        <div class="chat-text">
+
+        </div>
+        <form class="chat-form" (ngSubmit)="onChatMessageSubmit()">
+            <textarea [(ngModel)]="currentChatThread.unsentMessage">
+            </textarea>
+            <button type="submit">Send</button>
+        </form>
+    </div>
 </div>

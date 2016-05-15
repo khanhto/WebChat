@@ -158,6 +158,7 @@
     <Compile Include="Configuration\AppConstants.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Models\ChatMessage.cs" />
     <Compile Include="OwinMiddlewares\SPAUrlRewritingMiddleware.cs" />
     <Compile Include="Requests\LoginRequest.cs" />
     <Compile Include="Unity\HubUnityDependencyResolver.cs" />

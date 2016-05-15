@@ -3,6 +3,8 @@ using System.Web;
 using Microsoft.AspNet.SignalR;
 using WebChat.Repository;
 using System.Threading.Tasks;
+using WebChat.Models;
+using System.Threading;
 
 namespace WebChat.Hubs
 {
@@ -15,9 +17,15 @@ namespace WebChat.Hubs
             UserRepository = userRepository;
         }
 
-        public void Send(string userId, string message)
+        public void Send(ChatMessage message)
         {
-            Clients.User(userId).addNewMessageToPage(message);
+            //Clients.User(message.UserId.ToString()).onMessageReceived(new ChatMessage()
+            //{
+            //    UserId = int.Parse(Thread.CurrentPrincipal.Identity.Name),
+            //    Message = message.Message
+            //});
+
+            Clients.User(message.UserId.ToString()).onMessageReceived(message.Message);
         }
 
         public override Task OnConnected()
