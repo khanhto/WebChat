@@ -14,6 +14,7 @@ using System.IO;
 using WebChat.Configuration;
 using System.Web;
 using WebChat.OwinMiddlewares;
+using Microsoft.Owin.Security.Cookies;
 
 [assembly: OwinStartup(typeof(WebChat.Startup))]
 namespace WebChat
@@ -22,6 +23,21 @@ namespace WebChat
     {
         public void Configuration(IAppBuilder app)
         {
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = "Cookies",
+                Provider = new CookieAuthenticationProvider
+                {
+                    OnApplyRedirect = ctx =>
+                    {
+                        if (!IsAjaxRequest(ctx.Request))
+                        {
+                            ctx.Response.Redirect(ctx.RedirectUri);
+                        }
+                    }
+                }
+            });
+
             var hubConfiguration = new HubConfiguration();
             var httpConfiguration = new HttpConfiguration();
             ConfigureUnityContainer(httpConfiguration, hubConfiguration);
@@ -29,6 +45,7 @@ namespace WebChat
             app.MapSignalR(hubConfiguration);
             GlobalHost.HubPipeline.RequireAuthentication();
             WebApiConfig.Register(httpConfiguration);
+
             app.UseWebApi(httpConfiguration);
 
             app.Use<SPAUrlRewritingMiddleware>();
@@ -37,6 +54,17 @@ namespace WebChat
                 FileSystem = new PhysicalFileSystem(Path.Combine(HttpRuntime.AppDomainAppPath, AppConstants.webAppPath)),
                 RequestPath = new PathString(string.Empty)
             });
+        }
+
+        private static bool IsAjaxRequest(IOwinRequest request)
+        {
+            IReadableStringCollection query = request.Query;
+            if ((query != null) && (query["X-Requested-With"] == "XMLHttpRequest"))
+            {
+                return true;
+            }
+            IHeaderDictionary headers = request.Headers;
+            return ((headers != null) && (headers["X-Requested-With"] == "XMLHttpRequest"));
         }
 
         private void ConfigureUnityContainer(HttpConfiguration httpConfiguration, HubConfiguration hubConfiguration)

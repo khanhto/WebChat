@@ -21,7 +21,7 @@ namespace WebChat.Hubs
         {
             Clients.User(message.UserId.ToString()).onMessageReceived(new ChatMessage()
             {
-                UserId = int.Parse(Thread.CurrentPrincipal.Identity.Name),
+                UserId = int.Parse(Context.User.Identity.Name),
                 Message = message.Message
             });
         }

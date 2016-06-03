@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
 using System.Web.Security;
@@ -27,8 +28,13 @@ namespace WebChat.Controllers
             WebChat.Models.User user = UserRepository.GetUser(request.Username, request.Password);
             if (user != null)
             {
-                //temporarily using Forms authentication, will replace with another mechanism
-                FormsAuthentication.SetAuthCookie(user.Id.ToString(), false);
+                var claims = new List<Claim>();
+                claims.Add(new Claim(ClaimTypes.Name, user.Id.ToString()));
+
+                var id = new ClaimsIdentity(claims, "Cookies");
+                var ctx = Request.GetOwinContext();
+                var authenticationManager = ctx.Authentication;
+                authenticationManager.SignIn(id);
             }
             else
             {
