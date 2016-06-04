@@ -15,6 +15,8 @@ using WebChat.Configuration;
 using System.Web;
 using WebChat.OwinMiddlewares;
 using Microsoft.Owin.Security.Cookies;
+using System.Security.Claims;
+using WebChat.Authentication;
 
 [assembly: OwinStartup(typeof(WebChat.Startup))]
 namespace WebChat
@@ -37,6 +39,18 @@ namespace WebChat
                     }
                 }
             });
+
+            ClaimsPrincipal.PrimaryIdentitySelector = (ids) =>
+            {
+                ChatUserIdentity chatUserIdentity = null;
+                var defaultPrimaryIdentity = ids.FirstOrDefault();
+                if (defaultPrimaryIdentity != null)
+                {
+                    chatUserIdentity = new ChatUserIdentity(defaultPrimaryIdentity);
+                }
+
+                return chatUserIdentity;
+            };
 
             var hubConfiguration = new HubConfiguration();
             var httpConfiguration = new HttpConfiguration();
@@ -77,6 +91,7 @@ namespace WebChat
                 unityRegistry.Configure(unityContainer);
             }
 
+            unityContainer.RegisterType<IUserIdProvider, ClaimsUserIdProvider>();
             httpConfiguration.DependencyResolver = new UnityDependencyResolver(unityContainer);
             hubConfiguration.Resolver = new HubUnityDependencyResolver(unityContainer);
         }

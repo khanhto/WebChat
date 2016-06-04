@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
 using System.Web.Security;
+using WebChat.Authentication;
 using WebChat.Models;
 using WebChat.Repository;
 using WebChat.Requests;
@@ -29,7 +30,8 @@ namespace WebChat.Controllers
             if (user != null)
             {
                 var claims = new List<Claim>();
-                claims.Add(new Claim(ClaimTypes.Name, user.Id.ToString()));
+                claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+                claims.Add(new Claim(ClaimTypes.Name, user.Name.ToString()));
 
                 var id = new ClaimsIdentity(claims, "Cookies");
                 var ctx = Request.GetOwinContext();

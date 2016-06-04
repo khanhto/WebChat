@@ -5,6 +5,7 @@ using WebChat.Repository;
 using System.Threading.Tasks;
 using WebChat.Models;
 using System.Threading;
+using WebChat.Authentication;
 
 namespace WebChat.Hubs
 {
@@ -21,7 +22,7 @@ namespace WebChat.Hubs
         {
             Clients.User(message.UserId.ToString()).onMessageReceived(new ChatMessage()
             {
-                UserId = int.Parse(Context.User.Identity.Name),
+                UserId = int.Parse(((ChatUserIdentity)Context.User.Identity).Id),
                 Message = message.Message
             });
         }

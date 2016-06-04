@@ -159,6 +159,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\ChatUserIdentity.cs" />
+    <Compile Include="ClaimsUserIdProvider.cs" />
     <Compile Include="Configuration\AppConstants.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
