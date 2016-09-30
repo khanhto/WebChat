@@ -2,18 +2,18 @@ Dashboard
 
 <div>
     <ul class="friends-list">
-        <li *ngFor="#friend of friends" (click)="onFriendSelected(friend)">
+        <li *ngFor="let friend of friends" (click)="onFriendSelected(friend)">
                <span>{{friend.id}}</span> {{friend.name}}
         </li>
     </ul>
     <div class="chat-thread" *ngIf="currentChatThread">
         <ul class="chat-text">
-            <li *ngFor="#msg of currentChatThread.messages">
+            <li *ngFor="let msg of currentChatThread.messages">
                <span>{{msg.userid}}:</span> {{msg.message}}
             </li>
         </ul>
-        <form class="chat-form" (ngSubmit)="onChatMessageSubmit()">
-            <textarea [(ngModel)]="currentChatThread.unsentMessage">
+        <form #messageForm="ngForm" class="chat-form" (ngSubmit)="onChatMessageSubmit()">
+            <textarea [(ngModel)]="currentChatThread.unsentMessage" [ngModelOptions]="{standalone: true}">
             </textarea>
             <button type="submit">Send</button>
         </form>

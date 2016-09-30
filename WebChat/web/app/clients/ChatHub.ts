@@ -1,8 +1,8 @@
 ﻿declare var $: any;
 
 import {BaseHub} from './BaseHub';
-import {Injectable} from 'angular2/core';
-import {Response} from 'angular2/http';
+import {Injectable} from '@angular/core';
+import {Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {ChatMessage} from "../viewModels/ChatMessage";
 
@@ -16,7 +16,7 @@ export class ChatHub extends BaseHub {
         super($.connection.chatHub.connection);
         this.$chatHub = $.connection.chatHub;
 
-        this.incomingMessages = new Observable(observer => {
+        this.incomingMessages = new Observable<ChatMessage>(observer => {
             this.$chatHub.client.onMessageReceived = (message:ChatMessage) => {
                 observer.next(message);
             };

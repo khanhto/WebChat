@@ -1,4 +1,4 @@
-import {Response, Headers, Http} from 'angular2/http';
+import {Response, Headers, Http} from '@angular/http';
 
 export abstract class BaseClient {
     constructor(private http: Http) {}

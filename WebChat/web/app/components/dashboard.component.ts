@@ -1,6 +1,5 @@
-import { Component } from "angular2/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ChatHub } from "../clients/ChatHub";
-import { OnInit, OnDestroy } from 'angular2/core';
 import { UsersClient } from "../clients/UsersClient";
 import {User} from "../models/User";
 import {ChatThread} from "../viewModels/ChatThread";

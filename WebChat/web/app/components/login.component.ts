@@ -1,7 +1,7 @@
-import {Component} from "angular2/core";
+import {Component} from "@angular/core";
 import {LoginModel} from "../viewModels/LoginModel";
 import {AuthClient} from "../clients/AuthClient";
-import { Router } from 'angular2/router';
+import { Router } from '@angular/router';
 import { UserContext } from '../services/UserContext';
 import {User} from '../models/User';
 
@@ -24,7 +24,7 @@ export class LoginComponent {
             .then((user:User) => {
                 this.userContext.currentUser = user;
 
-                let link = ['Dashboard'];
+                let link = ['/dashboard'];
                 this.router.navigate(link);
             },(error) => {
                 //handle error later

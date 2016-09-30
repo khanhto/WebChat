@@ -1,6 +1,5 @@
-import {Injectable} from 'angular2/core';
-import {Http} from 'angular2/http';
-import {Promise} from 'es6-shim';
+import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
 import {BaseClient} from './BaseClient';
 import {User} from '../models/User';
 import 'rxjs/Rx';
