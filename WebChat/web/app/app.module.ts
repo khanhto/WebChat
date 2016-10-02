@@ -8,11 +8,20 @@ import { DashboardComponent }   from './components/dashboard.component';
 import { routing,
          appRoutingProviders }  from './app.routing';
 
+import {UserContext} from './services/UserContext';
+import {AuthClient} from './clients/AuthClient';
+import {ChatHub} from './clients/ChatHub';
+import { UsersClient } from "./clients/UsersClient";
+
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpModule, routing ],
   declarations: [ AppComponent, LoginComponent, DashboardComponent ],
   providers: [
-    appRoutingProviders
+    appRoutingProviders,
+    UserContext,
+    AuthClient,
+    ChatHub,
+    UsersClient
   ],
   bootstrap:    [ AppComponent ]
 })

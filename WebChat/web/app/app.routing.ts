@@ -17,12 +17,13 @@ const appRoutes: Routes = [
     },
     {
         path: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
+		canActivate: [AuthGuard]
     }
 ];
 
 export const appRoutingProviders: any[] = [
-
+    AuthGuard
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

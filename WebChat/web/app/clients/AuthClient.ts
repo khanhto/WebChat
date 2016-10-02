@@ -18,4 +18,10 @@ export class AuthClient extends BaseClient {
                         .toPromise()
                         .then(this.extractData);
     }
+
+    public getCurrentUser(): Promise<User> {
+        return this.get("/api/auth/GetCurrentUserInfo")
+                        .toPromise()
+                        .then(this.extractData);
+    }
 }

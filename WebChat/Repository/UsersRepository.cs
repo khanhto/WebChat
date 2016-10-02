@@ -12,6 +12,7 @@ namespace WebChat.Repository
         IList<User> GetAll();
         IList<User> SearchByName(string nameQuery);
         User GetUser(string username, string password);
+        User GetUserById(int Id);
     }
 
     public class UsersRepository : IUsersRepository
@@ -61,6 +62,11 @@ namespace WebChat.Repository
         public User GetUser(string username, string password)
         {
             return allUsers.FirstOrDefault(user => string.CompareOrdinal(user.Name, username) == 0);
+        }
+
+        public User GetUserById(int Id)
+        {
+            return allUsers.FirstOrDefault(user => user.Id == Id);
         }
     }
 }

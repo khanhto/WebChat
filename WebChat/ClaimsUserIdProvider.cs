@@ -16,7 +16,7 @@ namespace WebChat
 
             if (identity != null)
             {
-                userId = identity.Id;
+                userId = identity.Id.ToString();
             }
             return userId;
         }

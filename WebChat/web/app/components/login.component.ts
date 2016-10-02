@@ -22,7 +22,7 @@ export class LoginComponent {
     onSubmit() {
         this.authClient.login(this.loginInfo)
             .then((user:User) => {
-                this.userContext.currentUser = user;
+                this.userContext.updateCurrentUser(user.id, user.name);
 
                 let link = ['/dashboard'];
                 this.router.navigate(link);

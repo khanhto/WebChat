@@ -22,7 +22,7 @@ namespace WebChat.Hubs
         {
             Clients.User(message.UserId.ToString()).onMessageReceived(new ChatMessage()
             {
-                UserId = int.Parse(((ChatUserIdentity)Context.User.Identity).Id),
+                UserId = ((ChatUserIdentity)Context.User.Identity).Id,
                 Message = message.Message
             });
         }

@@ -61,8 +61,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     onChatMessageSubmit() {
         this.chatHub.Send(new ChatMessage(this.currentFriend.id,this.currentChatThread.unsentMessage)).then(() => {
-            this.currentChatThread.messages.push(new ChatMessage(this.userContext.currentUser.id,this.currentChatThread.unsentMessage));
-            this.currentChatThread.unsentMessage = "";
+            this.userContext.getCurrentUser().then(currentUser => {
+                this.currentChatThread.messages.push(new ChatMessage(currentUser.id,this.currentChatThread.unsentMessage));
+                this.currentChatThread.unsentMessage = "";
+            });
         });
     }
 }

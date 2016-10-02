@@ -17,19 +17,20 @@ namespace WebChat.Authentication
         {
         }
 
-        public string Id
+        public int Id
         {
             get
             {
-                string id = null;
-                var claim = this.FindFirst(ClaimTypes.NameIdentifier);
-                if (claim != null)
-                {
-                    id = claim.Value;
-                }
+                string id = GetClaimValue(ClaimTypes.NameIdentifier);
 
-                return id;
+                return !string.IsNullOrEmpty(id) ? int.Parse(id) : 0;
             }
+        }
+
+        private string GetClaimValue(string claimType)
+        {
+            var claim = this.FindFirst(claimType);
+            return claim != null ? claim.Value : string.Empty;
         }
     }
 }

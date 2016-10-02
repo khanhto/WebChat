@@ -45,5 +45,22 @@ namespace WebChat.Controllers
 
             return user;
         }
+
+        [HttpGet]
+        public User GetCurrentUserInfo()
+        {
+            var user = new User() { Id = 0 };
+            if (User.Identity.IsAuthenticated)
+            {
+                var userIdentity = (User.Identity as ChatUserIdentity);
+                user = UserRepository.GetUserById(userIdentity.Id);
+                if (user == null)
+                {
+                    throw new Exception("Something is wrong. This user does not exist");
+                }
+            }
+
+            return user;
+        }
     }
 }
