@@ -8,3 +8,4 @@ bower_components/
 *.suo
 *.user
 
+/WebChat/web/app/*.css

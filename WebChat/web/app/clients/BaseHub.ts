@@ -12,11 +12,7 @@ export abstract class BaseHub {
         });
     }
 
-    public Stop():Promise<Response> {
-        return new Promise((resolve, reject) => {
-            this.$connection.stop()
-                       .done(() => resolve())
-                       .fail(() => reject());
-        });
+    public Stop() {
+        this.$connection.stop();
     }
 }
