@@ -7,7 +7,8 @@ import {User} from '../models/User';
 
 @Component({
     selector: 'login',
-    templateUrl: 'app/components/login.component.html'
+    templateUrl: 'app/components/login.component.html',
+    styleUrls: ['app/components/login.component.css']
 })
 export class LoginComponent {
     loginInfo:LoginModel;

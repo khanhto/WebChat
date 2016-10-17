@@ -1,17 +1,25 @@
-<form #loginForm="ngForm" (ngSubmit)="onSubmit()">
-    <div>
-        User Name: <input type="text" required [(ngModel)]="loginInfo.username" name="username" #username="ngModel"/>
-    </div>
-    <div [hidden]="username.valid || username.pristine">
-        User Name is required
-    </div>
-    <div>
-        Password: <input type="password" required [(ngModel)]="loginInfo.password" name="password" #password="ngModel"/>
-    </div>
-    <div [hidden]="password.valid || password.pristine">
-        Password is required
-    </div>
-    <div>
-        <button md-raised-button color="primary" type="submit" [disabled]="!loginForm.form.valid">Login</button>
-    </div>
-</form>
+<div class="login-ui">
+        <form class="login-form" #loginForm="ngForm" (ngSubmit)="onSubmit()">
+                <div [hidden]="username.valid || username.pristine">
+                       <span color="warn"> Please enter your user name</span> 
+                </div>
+                <div>
+                        <md-input type="text" placeholder="User Name" dividerColor="accent" autofocus required
+                             [(ngModel)]="loginInfo.username" name="username" #username="ngModel">
+                         </md-input>
+                </div>
+                <div [hidden]="password.valid || password.pristine">
+                       <span color="warn">Please enter your password</span> 
+                 </div>
+                <div>
+                        <md-input type="password" placeholder="Password" dividerColor="accent" required
+                             [(ngModel)]="loginInfo.password" name="password" #password="ngModel">
+                        </md-input>
+                </div>
+                <div class="button-group">
+                     <button md-raised-button color="accent" type="submit" [disabled]="!loginForm.form.valid">
+                         Login
+                     </button>
+                </div>
+        </form>
+</div>
