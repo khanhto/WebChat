@@ -1,0 +1,19 @@
+.dashboard-ui {
+    height: 100%;
+    width:100%;
+    display: flex; 
+}
+
+.friends-list {
+    min-width:300px;
+    border-right: 1px solid blue; 
+    box-sizing: border-box;
+}
+
+.chat-thread {
+    width:100%;
+}
+
+
+
+

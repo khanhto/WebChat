@@ -1,1 +1,10 @@
 @import 'node_modules/@angular/material/core/theming/prebuilt/indigo-pink.scss';
+
+body {
+    margin:0px;
+}
+
+/* Temporary solution waiting for support from material design */
+md-list-item.active .md-list-item{
+    background-color: blue;
+}

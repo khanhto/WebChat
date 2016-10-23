@@ -8,7 +8,8 @@ import { UserContext } from '../services/UserContext';
 
 @Component({
     selector: 'dashboard',
-    templateUrl: 'app/components/dashboard.component.html'
+    templateUrl: 'app/components/dashboard.component.html',
+    styleUrls: ['app/components/dashboard.component.css']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
     constructor(private chatHub:ChatHub,

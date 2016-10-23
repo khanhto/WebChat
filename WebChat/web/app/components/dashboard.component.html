@@ -1,11 +1,9 @@
-Dashboard
-
-<div>
-    <ul class="friends-list">
-        <li *ngFor="let friend of friends" (click)="onFriendSelected(friend)">
-               <span>{{friend.id}}</span> {{friend.name}}
-        </li>
-    </ul>
+<div class="dashboard-ui">
+    <md-list class="friends-list">
+       <md-list-item *ngFor="let friend of friends" (click)="onFriendSelected(friend)" [class.active]="friend == currentFriend">
+                {{friend.name}} 
+       </md-list-item>
+    </md-list>
     <div class="chat-thread" *ngIf="currentChatThread">
         <ul class="chat-text">
             <li *ngFor="let msg of currentChatThread.messages">
